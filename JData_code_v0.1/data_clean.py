@@ -19,7 +19,8 @@ for dir in pathDir:
     user_type_5 = user[user['type']==5]
     user_type_4 = user[user['type']==4]
     if (8 not in user_type_2['cate'].unique()) and (8 not in user_type_4['cate'].unique()) and (8 not in user_type_5['cate'].unique()):
-        # os.remove('JData_201604_User/'+dir) # 原先的处理方式是直接删除文件，下面的修改方式是对文件名进行更改，加入.1标签表示该用户被清洗		os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
+        os.remove('JData_201604_User/'+dir) # 原先的处理方式是直接删除文件，下面的修改方式是对文件名进行更改，加入.1标签表示该用户被清洗		
+	# os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
     else: continue
 
 # 清洗规则2
@@ -29,8 +30,8 @@ for dir in pathDir:
     user = pd.read_csv('JData_201604_User/'+dir)
     user['time'] = pd.to_datetime(user['time'])
     if(user['time'][len(user['time'])-1] < datetime(2016,4,10)):
-        # os.remove('JData_201604_User/'+dir)
-        os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
+        os.remove('JData_201604_User/'+dir)
+        # os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
 	
 # 清洗规则3
 # 清洗在2016年4月13号后没有和8号品类商品有过交互的用户
@@ -39,7 +40,7 @@ for dir in pathDir:
     user = pd.read_csv('JData_201604_User/'+dir)
     user['time'] = pd.to_datetime(user['time'])
     if 8 not in user[user['time']>=datetime(2016,4,13)]['cate'].unique():
-        # os.remove('JData_201604_User/'+dir)
-		os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
+        os.remove('JData_201604_User/'+dir)
+	# os.rename('JData_201604_User/'+dir,'JData_201604_User/'+dir.split('.')[0]+'.1.csv')
 
 # 经过上述3个规则的清洗，可以将用户数量从85000降到18400
