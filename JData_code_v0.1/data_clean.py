@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 # 将JData_201604_User中的数据用pandas读入
-train_action_04 = pd.read('JData_201604_User/JData_Action_201604.csv')
+train_action_04 = pd.read('JData_Action_201604/JData_Action_201604.csv')
 # unique方法，将所有User_id逐一列出，且不会重复，下面的for循环将4月份的有发生交互的用户逐一保存为一个csv文件，文件名为用户ID号
 for user_id in train_action_04['user_id'].unique():
     train_action_04[train_action_02['user_id']==user_id].to_csv('JData_201604_User/'+str(user_id)+'.csv')
