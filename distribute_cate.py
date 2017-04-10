@@ -21,6 +21,7 @@ def tongji_fenbu(cate):
     cate8_be_buy = pd.DataFrame(cate8_be_buy.values)
     cate8_be_buy = cate8_be_buy.rename(columns={0:'user_id',1:'sku_id',2:'time',3:'model_id',4:'type',5:'cate',6:'brand'})
     cate8_be_buy['day'] = cate8_be_buy.time.apply(lambda x:x.days)
+    # 统计每一天的销售量
     c8 = collections.Counter(cate8_be_buy.day.values)
     print(c8)
     day_ = []
