@@ -13,7 +13,7 @@ def tongji_fenbu(cate):
     bought3 = pd.read_sql(sql_query,conn_jingdong)
     sql_query = 'SELECT * FROM JData_Action_201602 WHERE (type = 4) AND (cate = {}) AND (time < DATE_FORMAT("2016-4-16","%y-%m-%d"))'.format(cate)
     bought2 = pd.read_sql(sql_query,conn_jingdong)
-    # 由于历史原因，变成cate be buy
+    # 由于历史原因，变成cate8 be buy，就不改了
     cate8_be_buy = pd.concat([bought2,bought3,bought4])
     # 转换为时间格式
     cate8_be_buy.time = pd.to_datetime(cate8_be_buy.time)
