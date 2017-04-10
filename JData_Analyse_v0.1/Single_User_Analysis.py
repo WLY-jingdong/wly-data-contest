@@ -13,6 +13,7 @@ def Analyse_Single_User_data(User_id):
 
     User_data = pd.read_csv('JData_User.csv', encoding='gbk')
     Comment_data = pd.read_csv('JData_Comment.csv', encoding='gbk')
+    Comment_data.dt = pd.to_datetime(Comment_data.dt)
     print('用户个人信息： User_id, 年龄, 性别, 用户等级, 注册时间')
     print(User_data[User_data.user_id == User_id].values[0])
     conn_jingdong = pymysql.connect(host='localhost', port=3306, user='root', passwd='yao2376098', charset='latin1',
@@ -55,6 +56,8 @@ def Analyse_Single_User_data(User_id):
             print('    评论等级：', Sku_comment[Sku_comment.dt == Sku_comment.dt.max()]['comment_num'].values[0])
             print('    是否有差评：', Sku_comment[Sku_comment.dt == Sku_comment.dt.max()]['has_bad_comment'].values[0])
             print('    差评率：', Sku_comment[Sku_comment.dt == Sku_comment.dt.max()]['bad_comment_rate'].values[0])
+            print('    评论数变化率:', (Sku_comment[Sku_comment.dt == Sku_comment.dt.max()]['comment_num'].values[0] - Sku_comment[Sku_comment.dt == Sku_comment.dt.min()]['comment_num'].values[0])/((Sku_comment.dt.max()-Sku_comment.dt.min()).days + 1))
+            print('    差评变化率:', (Sku_comment[Sku_comment.dt == Sku_comment.dt.max()]['bad_comment_rate'].values[0] - Sku_comment[Sku_comment.dt == Sku_comment.dt.min()]['bad_comment_rate'].values[0])/((Sku_comment.dt.max()-Sku_comment.dt.min()).days + 1))
         print('    品类热度: ', cate_popularity[Sku.cate.unique()[0]])
         print('    品牌热度: ', brand_popularity[Sku.brand.unique()[0]])
         print('    商品热度: ', sku_popularity[Sku_id])
