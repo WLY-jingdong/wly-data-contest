@@ -6,7 +6,7 @@ import collections
 from datetime import datetime
 
 def tongji_fenbu(cate):
-    # 统计15号之前每个品类被购买的次数
+    # 统计15号之前品类cate被购买的日均分布
     sql_query = 'SELECT * FROM JData_Action_201604 WHERE (type = 4) AND (cate = {})  AND (time < DATE_FORMAT("2016-4-16","%y-%m-%d"))'.format(cate)
     bought4= pd.read_sql(sql_query,conn_jingdong)
     sql_query = 'SELECT * FROM JData_Action_201603 WHERE (type = 4) AND (cate = {}) AND (time < DATE_FORMAT("2016-4-16","%y-%m-%d"))'.format(cate)
