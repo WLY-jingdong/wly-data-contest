@@ -5,6 +5,10 @@ import pymysql
 import warnings
 
 warnings.filterwarnings("ignore")
+# 在这里写入你的用户名，密码和所用的数据库，注意是字符串格式
+user = ''
+passwd = ''
+db = ''
 
 def Analyse_Single_User_data(User_id):
     sku_popularity = pickle.load(open('sku_popularity.pkl', 'rb'))
@@ -16,8 +20,8 @@ def Analyse_Single_User_data(User_id):
     Comment_data.dt = pd.to_datetime(Comment_data.dt)
     print('用户个人信息： User_id, 年龄, 性别, 用户等级, 注册时间')
     print(User_data[User_data.user_id == User_id].values[0])
-    conn_jingdong = pymysql.connect(host='localhost', port=3306, user='root', passwd='yao2376098', charset='latin1',
-                                    db='jingdongdata')
+    conn_jingdong = pymysql.connect(host='localhost', port=3306, user=user, passwd=passwd, charset='latin1',
+                                    db=db)
     sql_query = 'SELECT * FROM JData_Action_201604 WHERE (user_id = {}) AND (time < DATE_FORMAT("2016-4-16","%y-%m-%d"))'.format(
         str(User_id))
     User_action4 = pd.read_sql(sql_query, conn_jingdong)
